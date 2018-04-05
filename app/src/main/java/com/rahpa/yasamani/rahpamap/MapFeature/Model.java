@@ -15,6 +15,8 @@ import com.rahpa.yasamani.rahpamap.Utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,31 +55,17 @@ public class Model implements MapContract.Model {
         String origin = points.get(0).latitude + "," + points.get(0).longitude;
         String destination = points.get(1).latitude + "," + points.get(1).longitude;
 
-        Constants.webServiceRequests.getDirection(origin,destination,Constants.MAP_KEY).enqueue(new Callback<Direction>() {
-            @Override
-            public void onResponse(Call<Direction> call, Response<Direction> response) {
+        Constants.webServiceRequests.getDirection(origin,destination,Constants.MAP_KEY)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onResponse);
+    }
 
-                String result = null;
-                try {
-                    result = response.body().getRoutes().get(0).getOverviewPolyline().getPoints();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                List<LatLng> resultRoute = null;
-                try {
-                    resultRoute = PolyUtil.decode(result);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                presenter.onLoadDirectionRoute(resultRoute);
-            }
-
-            @Override
-            public void onFailure(Call<Direction> call, Throwable t) {
-
-            }
-        });
-
+    private void onResponse(Direction direction) {
+        String result = null;
+        direction.getRoutes().get(0).getOverviewPolyline().getPoints();
+        List<LatLng> resultRoute = null;
+        resultRoute = PolyUtil.decode(result);
+        presenter.onLoadDirectionRoute(resultRoute);
     }
 }

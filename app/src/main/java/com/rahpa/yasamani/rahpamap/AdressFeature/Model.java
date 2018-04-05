@@ -5,6 +5,8 @@ import android.util.Log;
 import com.rahpa.yasamani.rahpamap.Entities.GoogleGeocode.Address;
 import com.rahpa.yasamani.rahpamap.Utils.Constants;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -16,6 +18,7 @@ import retrofit2.Response;
 public class Model implements AddressContract.Model {
 
     public AddressContract.Presenter presenter;
+    String[] addresses = new String[2];
 
     @Override
     public void onAttachPresenter(AddressContract.Presenter p) {
@@ -25,43 +28,30 @@ public class Model implements AddressContract.Model {
     @Override
     public void RequestAddress(Double[] coordinates) {
 
-        final String[] addresses = new String[2];
+
 
         String originAdd = coordinates[0] + "," + coordinates[1];
         String destinationAdd = coordinates[2] + "," + coordinates[3];
 
-        Constants.webServiceRequests.getAddress(originAdd,Constants.MAP_KEY).enqueue(new Callback<Address>() {
-            @Override
-            public void onResponse(Call<Address> call, Response<Address> response) {
-                try {
-                    Log.d("Address Response", "onResponse: " + response);
-                    addresses[0] = response.body().getResults().get(0).getFormattedAddress();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+        Constants.webServiceRequests.getAddress(originAdd,Constants.MAP_KEY)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onResponse);
 
-            @Override
-            public void onFailure(Call<Address> call, Throwable t) {
+        Constants.webServiceRequests.getAddress(destinationAdd,Constants.MAP_KEY)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onResponse2);
 
-            }
-        });
-
-        Constants.webServiceRequests.getAddress(destinationAdd,Constants.MAP_KEY).enqueue(new Callback<Address>() {
-            @Override
-            public void onResponse(Call<Address> call, Response<Address> response) {
-                try {
-                    addresses[1] = response.body().getResults().get(0).getFormattedAddress();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Address> call, Throwable t) {
-
-            }
-        });
         presenter.onAddressLoaded(addresses);
     }
+
+    private void onResponse(Address address) {
+        addresses[0] = address.getResults().get(0).getFormattedAddress();
+    }
+
+    private void onResponse2(Address address) {
+        addresses[1] = address.getResults().get(0).getFormattedAddress();
+    }
+
 }

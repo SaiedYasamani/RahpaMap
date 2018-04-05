@@ -4,6 +4,7 @@ import com.rahpa.yasamani.rahpamap.Entities.Direction;
 import com.rahpa.yasamani.rahpamap.Entities.GoogleGeocode.Address;
 import com.rahpa.yasamani.rahpamap.Entities.Route;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -15,9 +16,9 @@ import retrofit2.http.Query;
 public interface WebServiceRequests {
 
     @GET("directions/json")
-    Call<Direction> getDirection(@Query("origin") String origin, @Query("destination") String destination, @Query("apikey") String key);
+    Observable<Direction> getDirection(@Query("origin") String origin, @Query("destination") String destination, @Query("apikey") String key);
 
     @GET("geocode/json")
-    Call<Address> getAddress(@Query("latlng") String latlng, @Query("apikey") String key);
+    Observable<Address> getAddress(@Query("latlng") String latlng, @Query("apikey") String key);
 
 }
