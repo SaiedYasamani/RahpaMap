@@ -20,7 +20,6 @@ public class RetrofitServiceCreator {
 
         //create new okhttp client
         OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(5000, TimeUnit.MILLISECONDS)
                 .addInterceptor(interceptor)
                 .build();
 
