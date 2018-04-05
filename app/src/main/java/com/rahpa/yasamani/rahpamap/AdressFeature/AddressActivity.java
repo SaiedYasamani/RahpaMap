@@ -58,6 +58,7 @@ public class AddressActivity extends BaseActivity implements AddressContract.Vie
     @Override
     public void getAddress(String[] adds) {
         if (adds != null) {
+            Toast.makeText(this, "address : " + adds[0], Toast.LENGTH_SHORT).show();
             origin_address.setText(adds[0]);
             destination_address.setText(adds[1]);
         }

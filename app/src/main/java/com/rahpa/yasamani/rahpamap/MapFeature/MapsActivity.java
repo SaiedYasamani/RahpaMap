@@ -96,6 +96,7 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback,Map
     public void clear(){
         mMap.clear();
         center_indicator.setImageResource(R.drawable.origin_indicator);
+        isDirectionDetermined = false;
     }
 
     @AfterViews
@@ -182,15 +183,13 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback,Map
     @Override
     protected void onStart() {
         super.onStart();
-//        presenter.onStart();
-        EventBus.getDefault().register(this);
+        presenter.onStart();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-//        presenter.onStop();
-        EventBus.getDefault().unregister(this);
+        presenter.onStop();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

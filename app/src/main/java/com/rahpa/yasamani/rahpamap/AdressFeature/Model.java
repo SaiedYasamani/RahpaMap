@@ -1,5 +1,7 @@
 package com.rahpa.yasamani.rahpamap.AdressFeature;
 
+import android.util.Log;
+
 import com.rahpa.yasamani.rahpamap.Entities.GoogleGeocode.Address;
 import com.rahpa.yasamani.rahpamap.Utils.Constants;
 
@@ -32,6 +34,7 @@ public class Model implements AddressContract.Model {
             @Override
             public void onResponse(Call<Address> call, Response<Address> response) {
                 try {
+                    Log.d("Address Response", "onResponse: " + response);
                     addresses[0] = response.body().getResults().get(0).getFormattedAddress();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -48,7 +51,7 @@ public class Model implements AddressContract.Model {
             @Override
             public void onResponse(Call<Address> call, Response<Address> response) {
                 try {
-                    addresses[1] = response.body().getResults().get(0).getAddressComponents().get(0).getLongName();
+                    addresses[1] = response.body().getResults().get(0).getFormattedAddress();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
