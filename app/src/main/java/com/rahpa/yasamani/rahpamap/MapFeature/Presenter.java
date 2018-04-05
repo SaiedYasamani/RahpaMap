@@ -45,7 +45,10 @@ public class Presenter implements MapContract.Presenter {
 
     @Override
     public void onLoadDirectionRoute(List<LatLng> route) {
-        view.drawRoute(route);
+        if(route != null){
+
+            view.drawRoute(route);
+        }
     }
 
     @Override

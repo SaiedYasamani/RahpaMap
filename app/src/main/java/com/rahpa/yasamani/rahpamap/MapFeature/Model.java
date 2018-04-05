@@ -63,7 +63,12 @@ public class Model implements MapContract.Model {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                List<LatLng> resultRoute = PolyUtil.decode(result);
+                List<LatLng> resultRoute = null;
+                try {
+                    resultRoute = PolyUtil.decode(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 presenter.onLoadDirectionRoute(resultRoute);
             }

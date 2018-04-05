@@ -65,6 +65,9 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback,Map
     @ViewById
     ImageView center_indicator;
 
+    @ViewById
+    ImageView clear;
+
     @Click
     public void center_indicator(){
         
@@ -97,6 +100,7 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback,Map
         mMap.clear();
         center_indicator.setImageResource(R.drawable.origin_indicator);
         isDirectionDetermined = false;
+        Points.clear();
     }
 
     @AfterViews
@@ -158,6 +162,7 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback,Map
         if((requestCode == 200) && (resultCode == 201)){
 
             center_indicator.setVisibility(View.INVISIBLE);
+            clear.setVisibility(View.INVISIBLE);
             presenter.onDirectionRouteRequest(Points);
             mMap.setMyLocationEnabled(false);
             Intent gotoService = new Intent(this, LocationService.class);
