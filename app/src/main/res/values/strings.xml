@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">RahpaMap</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="center_indicator">center indicator</string>
+    <string name="map_dialog">لطفا مبدا و مقصد خود را انتخاب کنید</string>
+    <string name="map_marker_origin">مبدا</string>
+    <string name="map_marker_des">مقصد</string>
+    <string name="clear">clear</string>
+    <string name="origin">مبدا</string>
+    <string name="destination">مقصد</string>
+    <string name="direction">مسیر یابی</string>
+    <string name="origin_text_failure">مبدا یافت نشد</string>
+    <string name="destination_text_failure">مقصد یافت نشد</string>
+</resources>
