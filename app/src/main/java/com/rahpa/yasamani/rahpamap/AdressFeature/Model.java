@@ -47,11 +47,19 @@ public class Model implements AddressContract.Model {
     }
 
     private void onResponse(Address address) {
-        addresses[0] = address.getResults().get(0).getFormattedAddress();
+        try {
+            addresses[0] = address.getResults().get(0).getFormattedAddress();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void onResponse2(Address address) {
-        addresses[1] = address.getResults().get(0).getFormattedAddress();
+        try {
+            addresses[1] = address.getResults().get(0).getFormattedAddress();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

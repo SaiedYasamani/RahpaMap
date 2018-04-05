@@ -63,9 +63,17 @@ public class Model implements MapContract.Model {
 
     private void onResponse(Direction direction) {
         String result = null;
-        direction.getRoutes().get(0).getOverviewPolyline().getPoints();
+        try {
+            direction.getRoutes().get(0).getOverviewPolyline().getPoints();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         List<LatLng> resultRoute = null;
-        resultRoute = PolyUtil.decode(result);
+        try {
+            resultRoute = PolyUtil.decode(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         presenter.onLoadDirectionRoute(resultRoute);
     }
 }
