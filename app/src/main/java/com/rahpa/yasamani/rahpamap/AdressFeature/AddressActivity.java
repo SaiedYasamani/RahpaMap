@@ -1,24 +1,18 @@
 package com.rahpa.yasamani.rahpamap.AdressFeature;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.rahpa.yasamani.rahpamap.BaseActivity;
 import com.rahpa.yasamani.rahpamap.R;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.EService;
 import org.androidannotations.annotations.ViewById;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @EActivity(R.layout.activity_address)
 public class AddressActivity extends BaseActivity implements AddressContract.View {

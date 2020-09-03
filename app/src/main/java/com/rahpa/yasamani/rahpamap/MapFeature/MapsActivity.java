@@ -2,17 +2,13 @@ package com.rahpa.yasamani.rahpamap.MapFeature;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Point;
 import android.location.Location;
-import android.media.Image;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -21,15 +17,12 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.rahpa.yasamani.rahpamap.AdressFeature.AddressActivity;
-import com.rahpa.yasamani.rahpamap.AdressFeature.AddressActivity_;
 import com.rahpa.yasamani.rahpamap.BaseActivity;
 import com.rahpa.yasamani.rahpamap.R;
 import com.rahpa.yasamani.rahpamap.Utils.LocationService;
@@ -39,15 +32,11 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.nlopez.smartlocation.OnLocationUpdatedListener;
-import io.nlopez.smartlocation.SmartLocation;
 
 @EActivity(R.layout.activity_maps)
 public class MapsActivity extends BaseActivity implements OnMapReadyCallback,MapContract.View {
@@ -81,7 +70,7 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback,Map
         
         if(isDirectionDetermined){
 
-            Intent gotoAddress = new Intent(this, AddressActivity_.class);
+            Intent gotoAddress = new Intent(this, AddressActivity.class);
             gotoAddress.putExtra("OriginLat",Points.get(0).latitude);
             gotoAddress.putExtra("OriginLon",Points.get(0).longitude);
             gotoAddress.putExtra("DestinationLat",Points.get(1).latitude);
@@ -205,5 +194,5 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback,Map
         LatLng c1 = event.getServiceLocation();
         CurrentMarker = mMap.addCircle(new CircleOptions()
         .center(c1));
-    };
+    }
 }

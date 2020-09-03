@@ -64,13 +64,13 @@ public class Model implements MapContract.Model {
     private void onResponse(Direction direction) {
         String result = null;
         try {
-            direction.getRoutes().get(0).getOverviewPolyline().getPoints();
+            result = direction.getRoutes().get(0).getOverviewPolyline().getPoints();
         } catch (Exception e) {
             e.printStackTrace();
         }
         List<LatLng> resultRoute = null;
         try {
-            resultRoute = PolyUtil.decode(result);
+            if(result != null) resultRoute = PolyUtil.decode(result);
         } catch (Exception e) {
             e.printStackTrace();
         }
